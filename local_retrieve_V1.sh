@@ -104,13 +104,11 @@ for n in `cat GenBankAcc.txt`; do # iterate through lines of GenBankAcc.txt
 		#1: Retrieve FASTA file
 		########################## 
 		esearch -db nuccore -query "$n[ACCN]" | efetch -format fasta > $n.fasta
-		sleep 5
 		COUNT=`wc -c < $n.fasta | sed 's/^ *//' | sed 's/ .*//'`
 		
 		ITER=1
 		while [ "$COUNT" -lt 2 ] || [ "$ITER" -lt 5 ]; do
 			esearch -db nuccore -query "$n[ACCN]" | efetch -format fasta > $n.fasta
-			sleep 5
 			COUNT=`wc -c < $n.fasta | sed 's/^ *//' | sed 's/ .*//'`
 			ITER=$((ITER + 1))
 		done
@@ -135,14 +133,12 @@ for n in `cat GenBankAcc.txt`; do # iterate through lines of GenBankAcc.txt
 		########################## 
 		# Construct the taxonomy string for each species and add it to the table
 		esearch -db nuccore -query "$n[ACCN]" | efetch -format gp | head -50 > info
-		sleep 5
 		
 		COUNT=`wc -c < info | sed 's/^ *//' | sed 's/ .*//'`
 		
 		ITER=1
 		while [ "$COUNT" -lt 2 ] || [ "$ITER" -lt 5 ]; do
 			esearch -db nuccore -query "$n[ACCN]" | efetch -format gp | head -50 > info
-			sleep 5
 			COUNT=`wc -c < info | sed 's/^ *//' | sed 's/ .*//'`
 			ITER=$((ITER + 1))
 		done
@@ -215,13 +211,11 @@ for n in `cat GenBankAcc.txt`; do # iterate through lines of GenBankAcc.txt
 			echo $x
 			
 			esearch -db nuccore -query "$x[ACCN]" | efetch -format fasta > $x.fasta
-			sleep 5
 			COUNT=`wc -c < $x.fasta | sed 's/^ *//' | sed 's/ .*//'`
 		
 			ITER=1
 			while [ "$COUNT" -lt 2 ] || [ "$ITER" -lt 5 ]; do
 				esearch -db nuccore -query "$x[ACCN]" | efetch -format fasta > $x.fasta
-				sleep 5
 				COUNT=`wc -c < $x.fasta | sed 's/^ *//' | sed 's/ .*//'`
 				ITER=$((ITER + 1))
 			done
@@ -264,13 +258,11 @@ for n in `cat GenBankAcc.txt`; do # iterate through lines of GenBankAcc.txt
 		########################## 
 		# Construct the taxonomy string for each species and add it to the table
 		esearch -db nuccore -query "$h[ACCN]" | efetch -format gb | head -50 > info
-		sleep 5
 		COUNT=`wc -c < info | sed 's/^ *//' | sed 's/ .*//'`
 		
 		ITER=1
 		while [ "$COUNT" -lt 2 ] || [ "$ITER" -lt 5 ]; do
 			esearch -db nuccore -query "$h[ACCN]" | efetch -format gb | head -50 > info
-			sleep 5
 			COUNT=`wc -c < info | sed 's/^ *//' | sed 's/ .*//'`
 			ITER=$((ITER + 1))
 		done
